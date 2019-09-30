@@ -23,23 +23,23 @@ RUN cd /gcc \
 RUN rm -rf /gcc
 
 # Install CMake
-RUN wget https://github.com/Kitware/CMake/releases/download/v3.14.4/cmake-3.14.4-Linux-x86_64.sh
-RUN /bin/sh /cmake-3.14.4-Linux-x86_64.sh --skip-license
-RUN rm cmake-3.14.4-Linux-x86_64.sh
+RUN yum install -y cmake3
+RUN ln -s /bin/cmake3 /bin/cmake
+
+# Install git
+RUN yum install -y git
 
 # Install Yaml-CPP
-RUN git clone https://github.com/jbeder/yaml-cpp.git /yaml-cpp
-RUN mkdir -p /yaml-cpp/build
-RUN cd /yaml-cpp/build \
-  && cmake .. && make && make install
-RUN rm -rf /yaml-cpp
+WORKDIR /
+RUN git clone https://github.com/jbeder/yaml-cpp.git /yaml-cpp \
+  && mkdir -p /yaml-cpp/build \
+  && cd /yaml-cpp/build \
+  && cmake .. && make && make install \
+  && rm -rf /yaml-cpp
 
 # Install ZeroMQ
-RUN yum-config-manager --add-repo http://download.opensuse.org/repositories/network:/messaging:/zeromq:/release-stable/CentOS_7/network:messaging:zeromq:release-stable.repo
-#RUN wget https://download.opensuse.org/repositories/network:/messaging:/zeromq:/release-stable/Debian_9.0/Release.key
-#RUN apt-key add Release.key
-#RUN apt-get install -q -y libzmq3-dev
-RUN yum install -y libzmq3-dev
+RUN yum-config-manager --add-repo https://download.opensuse.org/repositories/network:/messaging:/zeromq:/release-stable/CentOS_7/network:messaging:zeromq:release-stable.repo
+RUN yum install -y cppzmq-devel
 
 # Install Google Test
 RUN git clone --depth=1 -b $BRANCH_OR_TAG -q https://github.com/google/googletest.git /googletest
@@ -48,4 +48,8 @@ RUN cd /googletest/build \
   && cmake .. && make && make install
 RUN rm -rf /googletest
 
-#RUN apt clean
+# Install doxygen
+RUN yum install -y doxygen
+
+# Set Library Path
+ENV LD_LIBRARY_PATH=/usr/local/lib:/usr/lib:/usr/local/lib64:/usr/lib64
