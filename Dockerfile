@@ -36,7 +36,8 @@ RUN yum install -y wget bzip2 git \
   && cd / \
   && rm -rf /googletest \
   && yum install -y doxygen \
-  && yum remove -y wget bzip2 git
+  && yum remove -y wget bzip2 git \
+  && yum install graphviz
 
 RUN yum remove -y gcc gcc-c++
 
