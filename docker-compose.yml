@@ -1,0 +1,10 @@
+version: '3.4'
+services:
+  build:
+    build:
+      context: .
+      target: shepherd-build
+  run:
+    build:
+      context: .
+      target: shepherd-dev

@@ -1,4 +1,4 @@
-FROM cern/cc7-base
+FROM cern/cc7-base:20191107 AS shepherd-build
 
 ARG BRANCH_OR_TAG=master
 RUN env
@@ -57,3 +57,14 @@ RUN yum remove -y \
 
 # Set Library Path
 ENV LD_LIBRARY_PATH=/usr/local/lib:/usr/lib:/usr/local/lib64:/usr/lib64
+
+
+FROM cern/cc7-base:20191107 AS shepherd-dev
+
+# Copy over compiled yaml-cpp Library
+
+# Install zmq runtime
+RUN yum-config-manager --add-repo https://download.opensuse.org/repositories/network:/messaging:/zeromq:/release-stable/CentOS_7/network:messaging:zeromq:release-stable.repo \
+  && yum install -y cppzmq-devel
+
+# Set library path?
