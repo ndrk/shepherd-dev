@@ -19,5 +19,5 @@
 - `docker build .`
 
 ## Usage
-- `docker run -t -v `pwd`:/usr/src -w /usr/src/ rknowlton/shepherddev_build make all`
+- ``docker run -t -v `pwd`:/usr/src -w /usr/src/ rknowlton/shepherddev_build make all``
 - `docker run -t -v `` `pwd` ``:/usr/src -w /usr/src/ rknowlton/shepherddev_build ./bin/application`
