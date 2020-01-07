@@ -29,6 +29,8 @@ RUN cd / \
   && cd / \
   && rm -rf /gcc
 
+RUN yum remove -y gcc gcc-c++
+
 RUN cd / \
   && git clone https://github.com/jbeder/yaml-cpp.git /yaml-cpp \
   && mkdir -p /yaml-cpp/build \
@@ -50,8 +52,6 @@ RUN git clone --depth=1 -b $BRANCH_OR_TAG -q https://github.com/google/googletes
 
 RUN yum remove -y \
   bzip2 \
-  gcc \
-  gcc-c++ \
   git \
   wget
 
