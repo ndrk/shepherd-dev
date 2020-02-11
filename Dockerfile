@@ -31,13 +31,14 @@ RUN cd / \
 
 RUN yum remove -y gcc gcc-c++
 
-RUN cd / \
-  && git clone https://github.com/jbeder/yaml-cpp.git /yaml-cpp \
-  && mkdir -p /yaml-cpp/build \
-  && cd /yaml-cpp/build \
-  && cmake .. && make && make install \
-  && cd / \
-  && rm -rf /yaml-cpp
+#RUN cd / \
+#  && git clone https://github.com/jbeder/yaml-cpp.git /yaml-cpp \
+#  && mkdir -p /yaml-cpp/build \
+#  && cd /yaml-cpp/build \
+#  && cmake .. && make && make install \
+#  && cd / \
+#  && rm -rf /yaml-cpp
+RUN yum install -y yaml-cpp
 
 RUN yum-config-manager --add-repo https://download.opensuse.org/repositories/network:/messaging:/zeromq:/release-stable/CentOS_7/network:messaging:zeromq:release-stable.repo \
   && yum install -y cppzmq-devel
@@ -55,6 +56,7 @@ RUN yum remove -y \
   git \
   wget
 
+RUN yum install -y boost-devel
 # Set Library Path
 ENV LD_LIBRARY_PATH=/usr/local/lib:/usr/lib:/usr/local/lib64:/usr/lib64
 
