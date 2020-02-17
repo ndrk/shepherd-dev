@@ -43,6 +43,10 @@ RUN git clone --depth=1 -b release-1.10.0 -q https://github.com/google/googletes
 #  && cd / \
 #  && rm -rf /yaml-cpp
 
+RUN yum install -y \
+  boost-devel \
+  log4cplus-devel
+
 # Set Library Path
 ENV LD_LIBRARY_PATH=/usr/local/lib:/usr/lib:/usr/local/lib64:/usr/lib64
 
